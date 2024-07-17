@@ -1,5 +1,3 @@
-import React from "react";
-import { FaCheck } from "react-icons/fa";
 import { IoCheckmark } from "react-icons/io5";
 
 export default function MobileScreen() {
@@ -16,7 +14,7 @@ export default function MobileScreen() {
         </div>
 
         <div className="flex justify-between items-center bg-gray-100 absolute p-1 top-28 -left-10 gap-x-1 py-6 rounded-sm">
-          {Array.from({ length: 4 }).map((item, index) => (
+          {Array.from({ length: 4 }).map((_, index) => (
             <div
               key={index}
               className="flex flex-col items-center justify-center gap-y-1"

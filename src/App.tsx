@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./App.css";
-import MobileScreen from "./components/MobileScreen";
+import MobileScreen from "./components/ui/MobileSection";
 import { exampleRequestData } from "./constants";
 import Footer from "./components/ui/Footer";
 import SubmitButton from "./components/ui/Button";

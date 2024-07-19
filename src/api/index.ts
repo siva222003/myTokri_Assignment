@@ -2,7 +2,7 @@ import axios from "axios";
 import { ExampleRequestData } from "../constants";
 
 export const makeApiRequest = async (data: ExampleRequestData) => {
-  const url = "http://localhost:3000/proxy";
+  const url = "https://mytokriassignment-production.up.railway.app/proxy";
 
   try {
     const response = await axios.post(url, data);

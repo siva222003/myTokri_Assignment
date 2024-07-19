@@ -1,11 +1,9 @@
 import { IoMenu } from "react-icons/io5";
-import { decodeHTML } from "../../helpers";
+// interface HeaderProps {
+//   headerInfo: string;
+// }
 
-interface HeaderProps {
-  headerInfo: string;
-}
-
-const Header = ({ headerInfo }: HeaderProps) => {
+const Header = () => {
   return (
     <div className=" flex justify-between">
       <IoMenu className=" text-gray-700" size={35} />

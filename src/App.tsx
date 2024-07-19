@@ -1,11 +1,10 @@
 import { useState } from "react";
 import "./App.css";
 import MobileScreen from "./components/ui/MobileSection";
-import { ApiResponse, exampleData, ExampleRequestData } from "./constants";
+import { ApiResponse, exampleData } from "./constants";
 import Footer from "./components/ui/Footer";
 import SubmitButton from "./components/ui/Button";
 import NumberInput from "./components/ui/NumberInput";
-import Header from "./components/ui/Header";
 import Steps from "./components/ui/Steps";
 import { makeApiRequest } from "./api";
 

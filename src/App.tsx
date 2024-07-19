@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import MobileScreen from "./components/ui/MobileSection";
-import { exampleRequestData } from "./constants";
+import { exampleData, ExampleRequestData } from "./constants";
 import Footer from "./components/ui/Footer";
 import SubmitButton from "./components/ui/Button";
 import NumberInput from "./components/ui/NumberInput";
@@ -10,18 +10,26 @@ import Steps from "./components/ui/Steps";
 import { makeApiRequest } from "./api";
 
 function App() {
-  const [phone, setPhone] = useState("");
+  const [msisdn, setMsisdn] = useState("");
+  const [data, setData] = useState<ExampleRequestData | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setError("");
-    setPhone(e.target.value);
+    setMsisdn(e.target.value);
   };
 
   const handleSubmit = async () => {
-    makeApiRequest(exampleRequestData);
-    setError("The number you have entered is not correct, please check the number and try again");
-    setPhone("");
+    exampleData.Request.MSISDN += msisdn;
+    exampleData.Request.TransactionID = Math.random().toString(36).substring(7);
+
+    const response = await makeApiRequest(exampleData);
+
+    if (response.Error !== 0) {
+      setError(response.MessageToShow);
+      return;
+    }
+
+    setData(response);
   };
 
   return (
@@ -36,7 +44,7 @@ function App() {
         <div className="flex flex-col ">
           <NumberInput handleChange={handleChange} />
 
-          <SubmitButton handleSubmit={handleSubmit} error={error} phone={phone} />
+          <SubmitButton handleSubmit={handleSubmit} error={error} phone={msisdn} />
         </div>
 
         <Footer />

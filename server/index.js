@@ -55,11 +55,9 @@ app.post("/proxy", async (req, res) => {
       }
     );
 
-    console.log("Raw Response Data:", response.data);
-
     try {
       const decryptedResponse = decryptData(response.data, encryptionKey);
-      console.log("Decrypted Response Data:", decryptedResponse);
+
       res.json(JSON.parse(decryptedResponse));
     } catch (decryptionError) {
       console.error("Error during decryption", decryptionError);

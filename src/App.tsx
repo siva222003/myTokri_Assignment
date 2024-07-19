@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import MobileScreen from "./components/ui/MobileSection";
-import { exampleData, ExampleRequestData } from "./constants";
+import { ApiResponse, exampleData, ExampleRequestData } from "./constants";
 import Footer from "./components/ui/Footer";
 import SubmitButton from "./components/ui/Button";
 import NumberInput from "./components/ui/NumberInput";
@@ -11,7 +11,7 @@ import { makeApiRequest } from "./api";
 
 function App() {
   const [msisdn, setMsisdn] = useState("");
-  const [data, setData] = useState<ExampleRequestData | null>(null);
+  const [data, setData] = useState<ApiResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -21,8 +21,9 @@ function App() {
   };
 
   const handleSubmit = async () => {
-    exampleData.Request.MSISDN += msisdn;
+    // exampleData.Request.MSISDN += msisdn;
     exampleData.Request.TransactionID = Math.random().toString(36).substring(7);
+    exampleData.Referrer.Affiliate.Country = "RE";
 
     setLoading(true);
     const response = await makeApiRequest(exampleData);
@@ -33,13 +34,13 @@ function App() {
       return;
     }
 
-    setData(response);
+    setData(response.NextAction);
   };
 
   return (
     <div className=" min-h-screen bg-gradient-to-b from-blue-500   via-white to-white ">
       <div className=" mx-auto p-6 max-w-md w-full">
-        <Header />
+        {/* {data && <Header headerInfo={data.Disclaimers.headerInfo} />} */}
 
         <Steps />
 
@@ -48,13 +49,21 @@ function App() {
         <div className="flex flex-col ">
           <NumberInput handleChange={handleChange} />
 
-          <SubmitButton handleSubmit={handleSubmit} error={error} phone={msisdn} loading={loading} />
-
-          {data && JSON.stringify(data, null, 2)}
-
+          <SubmitButton
+            handleSubmit={handleSubmit}
+            error={error}
+            phone={msisdn}
+            loading={loading}
+          />
         </div>
 
-        <Footer />
+        {data && (
+          <Footer
+            footerInfo={data.Disclaimers.footerInfo}
+            termsAndConditions={data.TermsAndConditions}
+            privacyPolicy={data.PrivacyPolicy}
+          />
+        )}
       </div>
     </div>
   );

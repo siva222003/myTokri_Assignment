@@ -44,7 +44,10 @@ function App() {
         <div className="flex flex-col ">
           <NumberInput handleChange={handleChange} />
 
-          <SubmitButton handleSubmit={handleSubmit} error={error} phone={msisdn} />
+          <SubmitButton handleSubmit={handleSubmit} error={error} phone={msisdn} />4
+
+          {data && JSON.stringify(data, null, 2)}
+
         </div>
 
         <Footer />

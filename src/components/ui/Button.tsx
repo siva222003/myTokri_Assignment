@@ -2,9 +2,10 @@ interface SubmitButtonProps {
   handleSubmit: () => void;
   error : string | null;
   phone : string;
+  loading: boolean;
 }
 
-const SubmitButton = ({ handleSubmit,error,phone }: SubmitButtonProps) => {
+const SubmitButton = ({ handleSubmit,error,phone ,loading}: SubmitButtonProps) => {
   return (
     <div className="mt-12">
       <p className=" text-red-500 text-sm font-medium leading-4 mb-6 -mt-9">{error ? error : ""}</p>
@@ -15,9 +16,9 @@ const SubmitButton = ({ handleSubmit,error,phone }: SubmitButtonProps) => {
             ? "text-white bg-gradient-to-r from-blue-900 to-blue-600"
             : "bg-gray-300 text-gray-500"
         }`}
-        disabled={phone.length != 10}
+        disabled={loading || phone.length != 10}
       >
-        CONTINUE
+        {loading ? "Loading..." : "Submit"}
       </button>
     </div>
   );

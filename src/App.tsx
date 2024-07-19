@@ -13,8 +13,10 @@ function App() {
   const [msisdn, setMsisdn] = useState("");
   const [data, setData] = useState<ExampleRequestData | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setError(null);
     setMsisdn(e.target.value);
   };
 
@@ -22,7 +24,9 @@ function App() {
     exampleData.Request.MSISDN += msisdn;
     exampleData.Request.TransactionID = Math.random().toString(36).substring(7);
 
+    setLoading(true);
     const response = await makeApiRequest(exampleData);
+    setLoading(false);
 
     if (response.Error !== 0) {
       setError(response.MessageToShow);
@@ -44,7 +48,7 @@ function App() {
         <div className="flex flex-col ">
           <NumberInput handleChange={handleChange} />
 
-          <SubmitButton handleSubmit={handleSubmit} error={error} phone={msisdn} />
+          <SubmitButton handleSubmit={handleSubmit} error={error} phone={msisdn} loading={loading} />
 
           {data && JSON.stringify(data, null, 2)}
 
